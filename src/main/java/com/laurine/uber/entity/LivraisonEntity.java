@@ -1,9 +1,12 @@
 package com.laurine.uber.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,30 +16,22 @@ public class LivraisonEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	private Long idLivraison;
-    private Long idCommande;
-    private Long idLivreur;
+    @Column
     private String status;
-    private String estimationDeLivraison;
+    
+    @ManyToOne
+    @JoinColumn(name = "commande_id")
+    private CommandeEntity commande;
     
 	public LivraisonEntity() {
 		super();
 	}
 
-	public LivraisonEntity(Long idCommande, Long idLivreur, String status, String estimationDeLivraison) {
-		super();
-		this.idCommande = idCommande;
-		this.idLivreur = idLivreur;
-		this.status = status;
-		this.estimationDeLivraison = estimationDeLivraison;
-	}
-
-	public LivraisonEntity(Long idLivraison, Long idCommande, Long idLivreur, String status, String estimationDeLivraison) {
+	public LivraisonEntity(Long idLivraison, String status, CommandeEntity commande) {
 		super();
 		this.idLivraison = idLivraison;
-		this.idCommande = idCommande;
-		this.idLivreur = idLivreur;
 		this.status = status;
-		this.estimationDeLivraison = estimationDeLivraison;
+		this.commande = commande;
 	}
 
 	public Long getIdLivraison() {
@@ -47,22 +42,6 @@ public class LivraisonEntity {
 		this.idLivraison = idLivraison;
 	}
 
-	public Long getIdCommande() {
-		return idCommande;
-	}
-
-	public void setIdCommande(Long idCommande) {
-		this.idCommande = idCommande;
-	}
-
-	public Long getIdLivreur() {
-		return idLivreur;
-	}
-
-	public void setIdLivreur(Long idLivreur) {
-		this.idLivreur = idLivreur;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -71,15 +50,14 @@ public class LivraisonEntity {
 		this.status = status;
 	}
 
-	public String getEstimationDeLivraison() {
-		return estimationDeLivraison;
+	public CommandeEntity getCommande() {
+		return commande;
 	}
 
-	public void setEstimationDeLivraison(String estimationDeLivraison) {
-		this.estimationDeLivraison = estimationDeLivraison;
+	public void setCommande(CommandeEntity commande) {
+		this.commande = commande;
 	}
+
 	
-    
-    
 
 }

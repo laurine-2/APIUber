@@ -35,10 +35,9 @@ public class LivraisonService {
 	
 	public LivraisonEntity updateLivraison(Long idLivraison, LivraisonEntity updatedLivraison) {
 		 LivraisonEntity livraison = getLivraisonById(idLivraison);
-	        livraison.setIdCommande(updatedLivraison.getIdCommande());
-	        livraison.setIdLivreur(updatedLivraison.getIdLivreur());
+	        //livraison.setIdCommande(updatedLivraison.getId());
 	        livraison.setStatus(updatedLivraison.getStatus());
-	        livraison.setEstimationDeLivraison(updatedLivraison.getEstimationDeLivraison());
+	        //livraison.setEstimationDeLivraison(updatedLivraison.getEstimationDeLivraison());
 	        return livraisonRepository.save(livraison);
 		
 	}

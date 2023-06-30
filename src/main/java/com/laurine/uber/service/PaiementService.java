@@ -32,9 +32,9 @@ public class PaiementService {
 	
 	public PaiementEntity updatedPaiement(Long idPaiement, PaiementEntity updatedPaiement) {
 		PaiementEntity paiement = getPaiementById(idPaiement);
-        paiement.setName(updatedPaiement.getName());
-        paiement.setDescription(updatedPaiement.getDescription());
-        paiement.setAccountDetails(updatedPaiement.getAccountDetails());
+        paiement.setTypeCarte(updatedPaiement.getTypeCarte());
+        paiement.setNumCarte(updatedPaiement.getNumCarte());
+        paiement.setCodeCVC(updatedPaiement.getCodeCVC());
         return paiementRepository.save(paiement);
 	}
 	

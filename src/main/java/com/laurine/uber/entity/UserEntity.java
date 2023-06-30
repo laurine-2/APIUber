@@ -1,48 +1,59 @@
 package com.laurine.uber.entity;
 
-import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 
 @Entity
-@DiscriminatorValue("ADMIN")
-public class AdminEntity extends UserEntity{
+@Table(name = "utilisateur")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type_utilisateur")
+public class UserEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long adminId;
-    
+    private Long idUser;
+	
+	@Column
     private String firstName;
-    private String lastName;
-    private int phone;
-    private String address;
+	@Column
+	private String lastName;
+	@Column
     private String email;
-    private String password;
-    
-    public AdminEntity() {
-        // Constructeur par défaut requis par JPA
-    }
+	@Column
+	private int phone;
+	@Column
+	private String address;
+	@Column
+	private String password;
+	
+	public UserEntity() {
+		super();
+	}
 
-	public AdminEntity(Long adminId, String firstName, String lastName, int phone, String address, String email,
+	public UserEntity(Long idUser, String firstName, String lastName, String email, int phone, String address,
 			String password) {
 		super();
-		this.adminId = adminId;
+		this.idUser = idUser;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
 		this.phone = phone;
 		this.address = address;
-		this.email = email;
 		this.password = password;
 	}
 
-	public Long getAdminId() {
-		return adminId;
+	public Long getIdUser() {
+		return idUser;
 	}
 
-	public void setAdminId(Long adminId) {
-		this.adminId = adminId;
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
 	}
 
 	public String getFirstName() {
@@ -61,6 +72,14 @@ public class AdminEntity extends UserEntity{
 		this.lastName = lastName;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public int getPhone() {
 		return phone;
 	}
@@ -77,14 +96,6 @@ public class AdminEntity extends UserEntity{
 		this.address = address;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -92,7 +103,8 @@ public class AdminEntity extends UserEntity{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-    
-    
-
+	
+	
+	
+	
 }

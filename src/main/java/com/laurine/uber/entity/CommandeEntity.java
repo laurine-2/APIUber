@@ -1,5 +1,6 @@
 package com.laurine.uber.entity;
 
+import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -8,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -21,82 +24,86 @@ public class CommandeEntity {
 	private Long idCommande;
 
     @Column
-    private String listeCommande;
-
-    private String address;
+    private Date date;
+    @Column
+    private double price;
     @Column
     private String status;
     
-    @ManyToOne
-    @JoinColumn(name = "idClient")
-    private ClientEntity client;
+    @ManyToMany
+    @JoinTable(name = "detail_commande",
+            joinColumns = @JoinColumn(name = "commande_id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_id"))
+    private List<MenuEntity> menus;
     
-    @ManyToOne
-    @JoinColumn(name ="idRestaurant")
-    private RestaurantEntity restaurant;
+    @OneToMany(mappedBy = "commande")
+    private List<LivraisonEntity> livraison;
     
-    //@OneToMany(mappedBy = "commande")
-   // private List<ArticleCommande> listeArticleCommande;
     
 	public CommandeEntity() {
 		super();
 	}
 
-	public CommandeEntity(Long idCommande, String listeCommande, String address, String status, ClientEntity client) {
+
+	public CommandeEntity(Long idCommande, Date date, double price, String status, List<MenuEntity> menus) {
 		super();
 		this.idCommande = idCommande;
-		this.listeCommande = listeCommande;
-		this.address = address;
+		this.date = date;
+		this.price = price;
 		this.status = status;
-		this.client = client;
+		this.menus = menus;
 	}
+
 
 	public Long getIdCommande() {
 		return idCommande;
 	}
 
+
 	public void setIdCommande(Long idCommande) {
 		this.idCommande = idCommande;
 	}
 
-	public String getListeCommande() {
-		return listeCommande;
+
+	public Date getDate() {
+		return date;
 	}
 
-	public void setListeCommande(String listeCommande) {
-		this.listeCommande = listeCommande;
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public String getAddress() {
-		return address;
+
+	public double getPrice() {
+		return price;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
+
 
 	public String getStatus() {
 		return status;
 	}
 
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public ClientEntity getClient() {
-		return client;
+
+	public List<MenuEntity> getMenus() {
+		return menus;
 	}
 
-	public void setClient(ClientEntity client) {
-		this.client = client;
+
+	public void setMenus(List<MenuEntity> menus) {
+		this.menus = menus;
 	}
-	
-	
-	
-	
 
-    
-    
-
+	
 
 }

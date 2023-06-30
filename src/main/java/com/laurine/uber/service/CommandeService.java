@@ -34,8 +34,8 @@ public class CommandeService {
 	
 	public CommandeEntity updateCommande(Long idCommande, CommandeEntity updatedCommande) {
 		 CommandeEntity commande = getCommandeById(idCommande);
-	        commande.setClient(updatedCommande.getClient());
-	        commande.setAddress(updatedCommande.getAddress());
+	        commande.setDate(updatedCommande.getDate());
+	        commande.setPrice(updatedCommande.getPrice());
 	        commande.setStatus(updatedCommande.getStatus());
 	        return repos.save(commande);
 	}
